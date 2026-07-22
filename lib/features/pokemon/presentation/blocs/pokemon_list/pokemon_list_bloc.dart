@@ -15,6 +15,7 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
     on<PokemonListLoadMoreRequested>(_onLoadMoreRequested);
     on<PokemonListRefreshed>(_onRefreshed);
     on<PokemonListSortChanged>(_onSortChanged);
+    on<PokemonListSearchChanged>(_onSearchChanged);
   }
 
   final GetPokemonListUseCase _getPokemonListUseCase;
@@ -58,7 +59,7 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
     PokemonListLoadMoreRequested event,
     Emitter<PokemonListState> emit,
   ) async {
-    if (state.hasReachedMax || state.status == PokemonListStatus.isLoadingMore) {
+    if (state.isSearching || state.hasReachedMax || state.status == PokemonListStatus.isLoadingMore) {
       return;
     }
 
@@ -127,5 +128,12 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
     Emitter<PokemonListState> emit,
   ) {
     emit(state.copyWith(sortType: event.sortType));
+  }
+
+  void _onSearchChanged(
+    PokemonListSearchChanged event,
+    Emitter<PokemonListState> emit,
+  ) {
+    emit(state.copyWith(searchQuery: event.query.trim()));
   }
 }

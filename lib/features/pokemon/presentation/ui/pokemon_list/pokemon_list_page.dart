@@ -18,6 +18,7 @@ class PokemonListPage extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             backgroundColor: BaseColors.pokedexRed,
+            resizeToAvoidBottomInset: false,
             body: SafeArea(
               bottom: false,
               child: Column(
@@ -46,7 +47,12 @@ class PokemonListPage extends StatelessWidget {
                         const SizedBox(height: 16),
                         Row(
                           children: [
-                            const Expanded(child: SearchPokemonInput()),
+                            Expanded(
+                              child: SearchPokemonInput(
+                                onChanged: (query) =>
+                                    context.read<PokemonListBloc>().add(PokemonListSearchChanged(query)),
+                              ),
+                            ),
                             const SizedBox(width: 12),
                             SortPokemonButton(
                               selectedSort: state.sortType,
@@ -77,10 +83,13 @@ class PokemonListPage extends StatelessWidget {
                           PokemonListStatus.onRefreshing ||
                           PokemonListStatus.onFailureMore =>
                             PokemonListView(
-                              pokemonList: state.sortedPokemonList,
+                              pokemonList: state.filteredPokemonList,
                               status: state.status,
+                              isSearching: state.isSearching,
                               onRefresh: () => context.read<PokemonListBloc>().add(const PokemonListRefreshed()),
-                              onLoadMore: () => context.read<PokemonListBloc>().add(const PokemonListLoadMoreRequested()),
+                              onLoadMore: state.isSearching
+                                  ? null
+                                  : () => context.read<PokemonListBloc>().add(const PokemonListLoadMoreRequested()),
                             ),
                         },
                       ),

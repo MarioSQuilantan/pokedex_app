@@ -22,6 +22,7 @@ class PokemonListState extends Equatable {
     this.failureMessage,
     this.hasReachedMax = false,
     this.sortType = PokemonListSortType.number,
+    this.searchQuery = '',
   });
 
   final PokemonListStatus status;
@@ -29,6 +30,9 @@ class PokemonListState extends Equatable {
   final String? failureMessage;
   final bool hasReachedMax;
   final PokemonListSortType sortType;
+  final String searchQuery;
+
+  bool get isSearching => searchQuery.isNotEmpty;
 
   List<PokemonListEntity> get sortedPokemonList {
     final sorted = List<PokemonListEntity>.from(pokemonList);
@@ -43,12 +47,26 @@ class PokemonListState extends Equatable {
     return sorted;
   }
 
+  List<PokemonListEntity> get filteredPokemonList {
+    if (searchQuery.isEmpty) {
+      return sortedPokemonList;
+    }
+
+    final query = searchQuery.toLowerCase();
+
+    return sortedPokemonList.where((pokemon) {
+      return pokemon.name.toLowerCase().contains(query) ||
+          pokemon.id.toString().contains(query);
+    }).toList();
+  }
+
   PokemonListState copyWith({
     PokemonListStatus? status,
     List<PokemonListEntity>? pokemonList,
     String? failureMessage,
     bool? hasReachedMax,
     PokemonListSortType? sortType,
+    String? searchQuery,
     bool clearFailureMessage = false,
   }) {
     return PokemonListState(
@@ -57,9 +75,10 @@ class PokemonListState extends Equatable {
       failureMessage: clearFailureMessage ? null : failureMessage ?? this.failureMessage,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
       sortType: sortType ?? this.sortType,
+      searchQuery: searchQuery ?? this.searchQuery,
     );
   }
 
   @override
-  List<Object?> get props => [status, pokemonList, failureMessage, hasReachedMax, sortType];
+  List<Object?> get props => [status, pokemonList, failureMessage, hasReachedMax, sortType, searchQuery];
 }

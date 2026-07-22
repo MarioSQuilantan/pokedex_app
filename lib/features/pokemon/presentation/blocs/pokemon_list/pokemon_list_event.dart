@@ -27,3 +27,12 @@ final class PokemonListSortChanged extends PokemonListEvent {
   @override
   List<Object> get props => [sortType];
 }
+
+final class PokemonListSearchChanged extends PokemonListEvent {
+  const PokemonListSearchChanged(this.query);
+
+  final String query;
+
+  @override
+  List<Object> get props => [query];
+}

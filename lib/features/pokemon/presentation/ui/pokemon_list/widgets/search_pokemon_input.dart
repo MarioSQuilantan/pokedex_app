@@ -5,12 +5,12 @@ import '../../../../../../core/core.dart';
 class SearchPokemonInput extends StatelessWidget {
   const SearchPokemonInput({
     super.key,
+    required this.onChanged,
     this.controller,
-    this.onChanged,
   });
 
   final TextEditingController? controller;
-  final ValueChanged<String>? onChanged;
+  final ValueChanged<String> onChanged;
 
   @override
   Widget build(BuildContext context) {
