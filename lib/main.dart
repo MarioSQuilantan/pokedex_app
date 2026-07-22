@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'core/core.dart';
 
@@ -18,11 +17,7 @@ class PokedexApp extends StatelessWidget {
 
     return MaterialApp.router(
       title: 'Pokedex App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-        useMaterial3: true,
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
-      ),
+      theme: AppTheme.light(),
       routerConfig: router,
     );
   }

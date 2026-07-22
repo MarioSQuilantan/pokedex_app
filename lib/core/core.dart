@@ -4,3 +4,5 @@ export 'error/error.dart';
 export 'router/router.dart';
 export 'extensions/extensions.dart';
 export 'consts/consts.dart';
+export 'shared/shared.dart';
+export 'theme/theme.dart';
