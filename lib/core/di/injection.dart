@@ -3,12 +3,9 @@ import 'package:injectable/injectable.dart';
 
 import 'injection.config.dart';
 
-final getIt = GetIt.instance;
+final di = GetIt.instance;
 
-@InjectableInit(
-  preferRelativeImports: true,
-  asExtension: true,
-)
+@InjectableInit(preferRelativeImports: true, asExtension: true)
 Future<void> configureDependencies() async {
-  getIt.init();
+  di.init();
 }

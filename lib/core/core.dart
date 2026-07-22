@@ -3,3 +3,4 @@ export 'env/env.dart';
 export 'error/error.dart';
 export 'router/router.dart';
 export 'extensions/extensions.dart';
+export 'consts/consts.dart';
