@@ -1,0 +1,10 @@
+targets:
+  $default:
+    sources:
+      - $package$
+      - lib/**
+      - .env*
+    builders:
+      envied_generator|envied:
+        options:
+          override: true
