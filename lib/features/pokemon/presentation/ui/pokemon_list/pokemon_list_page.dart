@@ -48,7 +48,11 @@ class PokemonListPage extends StatelessWidget {
                           children: [
                             const Expanded(child: SearchPokemonInput()),
                             const SizedBox(width: 12),
-                            SortPokemonButton(onPressed: () {}),
+                            SortPokemonButton(
+                              selectedSort: state.sortType,
+                              onSortSelected: (sort) =>
+                                  context.read<PokemonListBloc>().add(PokemonListSortChanged(sort)),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 24),
@@ -73,7 +77,7 @@ class PokemonListPage extends StatelessWidget {
                           PokemonListStatus.onRefreshing ||
                           PokemonListStatus.onFailureMore =>
                             PokemonListView(
-                              pokemonList: state.pokemonList,
+                              pokemonList: state.sortedPokemonList,
                               status: state.status,
                               onRefresh: () => context.read<PokemonListBloc>().add(const PokemonListRefreshed()),
                               onLoadMore: () => context.read<PokemonListBloc>().add(const PokemonListLoadMoreRequested()),

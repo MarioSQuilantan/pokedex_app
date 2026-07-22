@@ -14,6 +14,7 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
     on<PokemonListStarted>(_onStarted);
     on<PokemonListLoadMoreRequested>(_onLoadMoreRequested);
     on<PokemonListRefreshed>(_onRefreshed);
+    on<PokemonListSortChanged>(_onSortChanged);
   }
 
   final GetPokemonListUseCase _getPokemonListUseCase;
@@ -119,5 +120,12 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
         ),
       ),
     );
+  }
+
+  void _onSortChanged(
+    PokemonListSortChanged event,
+    Emitter<PokemonListState> emit,
+  ) {
+    emit(state.copyWith(sortType: event.sortType));
   }
 }

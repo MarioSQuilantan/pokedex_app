@@ -18,3 +18,12 @@ final class PokemonListLoadMoreRequested extends PokemonListEvent {
 final class PokemonListRefreshed extends PokemonListEvent {
   const PokemonListRefreshed();
 }
+
+final class PokemonListSortChanged extends PokemonListEvent {
+  const PokemonListSortChanged(this.sortType);
+
+  final PokemonListSortType sortType;
+
+  @override
+  List<Object> get props => [sortType];
+}
