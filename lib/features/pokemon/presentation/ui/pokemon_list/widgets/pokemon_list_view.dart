@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/core.dart';
 import '../../../../domain/domain.dart';
@@ -73,7 +74,12 @@ class PokemonListView extends StatelessWidget {
 
             final pokemon = pokemonList[index];
 
-            return PokemonCard(name: pokemon.name.capitalize(), image: pokemon.imagePath, id: pokemon.id.toString());
+            return PokemonCard(
+              name: pokemon.name.capitalize(),
+              image: pokemon.imagePath,
+              id: pokemon.id.toString(),
+              onTap: () => context.pushNamed(RoutePaths.pokemonDetail.name),
+            );
           },
         ),
       ),

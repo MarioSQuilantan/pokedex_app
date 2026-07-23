@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/features.dart';
 import 'route_paths.dart';
+import 'route_transition_page.dart';
 
 class AppRouter {
   AppRouter();
@@ -12,12 +13,20 @@ class AppRouter {
       GoRoute(
         path: RoutePaths.pokemonList.path,
         name: RoutePaths.pokemonList.name,
-        builder: (context, state) => PokemonListPage(),
+        pageBuilder: (context, state) => buildRouteTransitionPage(
+          state: state,
+          transition: AppRouteTransition.slideOut,
+          child: PokemonListPage(),
+        ),
       ),
       GoRoute(
         path: RoutePaths.pokemonDetail.path,
         name: RoutePaths.pokemonDetail.name,
-        builder: (context, state) => PokemonDetailPage(),
+        pageBuilder: (context, state) => buildRouteTransitionPage(
+          state: state,
+          transition: AppRouteTransition.slideIn,
+          child: PokemonDetailPage(),
+        ),
       ),
     ],
   );

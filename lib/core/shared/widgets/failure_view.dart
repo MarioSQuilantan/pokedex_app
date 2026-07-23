@@ -4,12 +4,7 @@ import '../../consts/consts.dart';
 import '../../extensions/extensions.dart';
 
 class FailureView extends StatelessWidget {
-  const FailureView({
-    super.key,
-    required this.message,
-    required this.onRetry,
-    this.retryLabel = 'Retry',
-  });
+  const FailureView({super.key, required this.message, required this.onRetry, this.retryLabel = 'Retry'});
 
   final String message;
   final VoidCallback onRetry;
@@ -26,14 +21,13 @@ class FailureView extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
+              maxLines: 3,
               style: context.bodyBase.copyWith(color: Colors.black54),
             ).responsive(),
             const SizedBox(height: 16),
             FilledButton(
               onPressed: onRetry,
-              style: FilledButton.styleFrom(
-                backgroundColor: BaseColors.pokedexRed,
-              ),
+              style: FilledButton.styleFrom(backgroundColor: BaseColors.pokedexRed),
               child: Text(retryLabel),
             ),
           ],
