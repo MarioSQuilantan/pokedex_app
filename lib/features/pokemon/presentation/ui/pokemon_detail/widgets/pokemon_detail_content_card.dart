@@ -4,6 +4,7 @@ import '../../../../../../core/core.dart';
 import '../../../../domain/domain.dart';
 import '../../../extensions/extensions.dart';
 import 'pokemon_about_item.dart';
+import 'pokemon_description_section.dart';
 import 'pokemon_section_title.dart';
 import 'pokemon_stat_row.dart';
 import 'pokemon_type_chip.dart';
@@ -19,22 +20,18 @@ class PokemonDetailContentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-      ),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
       child: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(24, 112, 24, 32),
+        physics: ClampingScrollPhysics(),
+        padding: const EdgeInsets.fromLTRB(24, 80, 24, 32),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Wrap(
               spacing: 8,
               runSpacing: 8,
               alignment: WrapAlignment.center,
-              children: [
-                for (final type in pokemon.types)
-                  PokemonTypeChip(type: type.name),
-              ],
+              children: [for (final type in pokemon.types) PokemonTypeChip(type: type.name)],
             ),
             const SizedBox(height: 32),
             PokemonSectionTitle(title: 'About', color: pokemon.background),
@@ -45,7 +42,7 @@ class PokemonDetailContentCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: PokemonAboutItem(
-                      icon: Icons.scale_outlined,
+                      icon: SvgPaths.weight,
                       label: 'Weight',
                       value: pokemon.weight.formatWeight(),
                     ),
@@ -53,7 +50,7 @@ class PokemonDetailContentCard extends StatelessWidget {
                   VerticalDivider(color: Colors.grey.shade300, thickness: 1),
                   Expanded(
                     child: PokemonAboutItem(
-                      icon: Icons.height_outlined,
+                      icon: SvgPaths.height,
                       label: 'Height',
                       value: pokemon.height.formatHeight(),
                     ),
@@ -62,25 +59,28 @@ class PokemonDetailContentCard extends StatelessWidget {
                   Expanded(
                     child: PokemonAboutItem(
                       label: 'Moves',
-                      value: pokemon.abilities
-                          .map((ability) => ability.capitalize())
-                          .join('\n'),
+                      value: pokemon.abilities.map((ability) => ability.capitalize()).join('\n'),
                       alignStart: true,
                     ),
                   ),
                 ],
               ),
             ),
+            const PokemonDescriptionSection(),
             const SizedBox(height: 32),
             PokemonSectionTitle(title: 'Base Stats', color: pokemon.background),
-            const SizedBox(height: 16),
-            for (var index = 0; index < _statLabels.length; index++)
-              if (index < pokemon.stats.length)
-                PokemonStatRow(
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: pokemon.stats.length.clamp(0, _statLabels.length),
+              itemBuilder: (context, index) {
+                return PokemonStatRow(
                   label: _statLabels[index],
                   value: pokemon.stats[index],
                   color: pokemon.background,
-                ),
+                );
+              },
+            ),
           ],
         ),
       ),

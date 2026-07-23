@@ -13,4 +13,8 @@ abstract class PokemonRepository {
   TaskEither<Failure, PokemonDetailEntity> getPokemonDetails(
     GetPokemonDetailsRequest request,
   );
+
+  TaskEither<Failure, PokemonDescriptionEntity> getPokemonDescription(
+    GetPokemonDescriptionRequest request,
+  );
 }

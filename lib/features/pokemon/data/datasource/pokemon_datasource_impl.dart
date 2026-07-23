@@ -32,4 +32,13 @@ class PokemonDatasourceImpl implements PokemonDatasource {
         .get<Map<String, dynamic>>('${UrlPaths.pokemon}/${request.id}')
         .map(GetPokemonDetailsModel.fromJson);
   }
+
+  @override
+  TaskEither<Failure, GetPokemonDescriptionModel> getPokemonDescription(
+    GetPokemonDescriptionRequest request,
+  ) {
+    return _networkService
+        .get<Map<String, dynamic>>('${UrlPaths.pokemonSpecies}/${request.id}')
+        .map(GetPokemonDescriptionModel.fromJson);
+  }
 }

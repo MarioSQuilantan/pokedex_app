@@ -12,9 +12,17 @@ class PokemonDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      key: ValueKey(id),
-      create: (context) => di<PokemonDetailBloc>()..add(PokemonDetailInit(id)),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          key: ValueKey('detail-$id'),
+          create: (context) => di<PokemonDetailBloc>()..add(PokemonDetailInit(id)),
+        ),
+        BlocProvider(
+          key: ValueKey('description-$id'),
+          create: (context) => di<PokemonDescriptionBloc>()..add(PokemonDescriptionInit(id)),
+        ),
+      ],
       child: BlocBuilder<PokemonDetailBloc, PokemonDetailState>(
         builder: (context, state) {
           return switch (state) {

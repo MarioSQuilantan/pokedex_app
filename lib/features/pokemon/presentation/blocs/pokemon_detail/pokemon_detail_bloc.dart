@@ -10,8 +10,7 @@ part 'pokemon_detail_state.dart';
 
 @Injectable()
 class PokemonDetailBloc extends Bloc<PokemonDetailEvent, PokemonDetailState> {
-  PokemonDetailBloc(this._getPokemonDetailsUseCase)
-      : super(const PokemonDetailInitial()) {
+  PokemonDetailBloc(this._getPokemonDetailsUseCase) : super(const PokemonDetailInitial()) {
     on<PokemonDetailInit>(onInit);
   }
 

@@ -3,18 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../../../../core/core.dart';
 
 class PokemonStatRow extends StatelessWidget {
-  const PokemonStatRow({
-    super.key,
-    required this.label,
-    required this.value,
-    required this.color,
-  });
+  const PokemonStatRow({super.key, required this.label, required this.value, required this.color});
 
   final String label;
   final num value;
   final Color color;
-
-  static const _maxStat = 255;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +19,7 @@ class PokemonStatRow extends StatelessWidget {
             width: 40,
             child: Text(
               label,
-              style: context.subtitle.copyWith(
-                color: color,
-                fontWeight: FontWeight.w600,
-              ),
+              style: context.subtitle.copyWith(color: color, fontWeight: FontWeight.w600),
             ).responsive(),
           ),
           Container(
@@ -50,7 +40,7 @@ class PokemonStatRow extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(999),
               child: LinearProgressIndicator(
-                value: value / _maxStat,
+                value: value / 255,
                 minHeight: 6,
                 backgroundColor: color.withValues(alpha: 0.2),
                 color: color,

@@ -31,7 +31,7 @@ class PokemonDetailView extends StatelessWidget {
             ],
           ),
           Positioned(
-            top: MediaQuery.paddingOf(context).top + 72,
+            top: MediaQuery.paddingOf(context).top + 82,
             left: 24,
             right: 24,
             child: Row(
@@ -39,15 +39,13 @@ class PokemonDetailView extends StatelessWidget {
               children: [
                 (pokemon.id != 1)
                     ? IconButton(
-                        onPressed: (pokemon.id > 1)
-                            ? () => context.replaceNamed(
-                                RoutePaths.pokemonDetail.name,
-                                pathParameters: {'id': '${pokemon.id - 1}'},
-                              )
-                            : null,
+                        onPressed: () => context.replaceNamed(
+                          RoutePaths.pokemonDetail.name,
+                          pathParameters: {'id': '${pokemon.id - 1}'},
+                        ),
                         icon: const Icon(Icons.chevron_left_rounded, color: Colors.white, size: 28),
                       )
-                    : SizedBox(width: 24),
+                    : const SizedBox(width: 48),
                 Expanded(
                   child: Center(
                     child: SizedBox(
