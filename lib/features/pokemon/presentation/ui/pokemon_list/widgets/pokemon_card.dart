@@ -56,7 +56,7 @@ class PokemonCard extends StatelessWidget {
               left: 8,
               right: 8,
               top: 24,
-              bottom: 24,
+              bottom: 40,
               child: CachedNetworkImage(
                 imageUrl: image,
                 fit: BoxFit.contain,

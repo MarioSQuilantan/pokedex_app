@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/core.dart';
 import '../../blocs/blocs.dart';
+import 'widgets/widgets.dart';
 
 class PokemonDetailPage extends StatelessWidget {
   const PokemonDetailPage({super.key, required this.id});
@@ -12,10 +13,28 @@ class PokemonDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
+      key: ValueKey(id),
       create: (context) => di<PokemonDetailBloc>()..add(PokemonDetailInit(id)),
       child: BlocBuilder<PokemonDetailBloc, PokemonDetailState>(
-        builder: (context, pokemonDetailState) {
-          return Scaffold(body: SafeArea(child: Center()));
+        builder: (context, state) {
+          return switch (state) {
+            PokemonDetailInitial() || PokemonDetailLoading() => const Scaffold(
+              body: SafeArea(child: Center(child: CircularProgressIndicator())),
+            ),
+            PokemonDetailFailure(:final message, :final pokemonId) => Scaffold(
+              backgroundColor: Colors.white,
+              body: SafeArea(
+                child: FailureView(
+                  message: message,
+                  onRetry: () => context.read<PokemonDetailBloc>().add(PokemonDetailInit(pokemonId)),
+                ),
+              ),
+            ),
+            PokemonDetailSuccess(:final pokemon) => Scaffold(
+              backgroundColor: pokemon.background,
+              body: PokemonDetailView(pokemon: pokemon),
+            ),
+          };
         },
       ),
     );

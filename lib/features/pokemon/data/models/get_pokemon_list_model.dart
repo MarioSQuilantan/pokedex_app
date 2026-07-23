@@ -41,8 +41,9 @@ extension GetPokemonListResultModelX on GetPokemonListResultModel {
   PokemonListEntity toEntity() {
     final uri = Uri.parse(url);
     final id = int.tryParse(uri.pathSegments[uri.pathSegments.length - 2]) ?? 0;
+
     final imagePath =
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png';
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png';
     return PokemonListEntity(name: name, imagePath: imagePath, id: id);
   }
 }
