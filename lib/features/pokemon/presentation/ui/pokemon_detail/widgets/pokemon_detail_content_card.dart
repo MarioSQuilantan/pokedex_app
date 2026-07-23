@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/core.dart';
 import '../../../../domain/domain.dart';
-import '../../../extensions/extensions.dart';
 import 'pokemon_about_item.dart';
 import 'pokemon_description_section.dart';
 import 'pokemon_section_title.dart';

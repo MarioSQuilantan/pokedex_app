@@ -20,7 +20,12 @@ class PokemonCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: onTap,
+        onTap: onTap == null
+            ? null
+            : () {
+                FocusManager.instance.primaryFocus?.unfocus();
+                onTap!();
+              },
         child: Stack(
           clipBehavior: Clip.none,
           children: [
