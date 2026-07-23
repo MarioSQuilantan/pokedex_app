@@ -9,4 +9,8 @@ abstract class PokemonRepository {
   TaskEither<Failure, List<PokemonListEntity>> getPokemonList(
     GetPokemonListRequest request,
   );
+
+  TaskEither<Failure, PokemonDetailEntity> getPokemonDetails(
+    GetPokemonDetailsRequest request,
+  );
 }

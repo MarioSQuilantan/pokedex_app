@@ -78,7 +78,7 @@ class PokemonListView extends StatelessWidget {
               name: pokemon.name.capitalize(),
               image: pokemon.imagePath,
               id: pokemon.id.toString(),
-              onTap: () => context.pushNamed(RoutePaths.pokemonDetail.name),
+              onTap: () => context.pushNamed(RoutePaths.pokemonDetail.name, pathParameters: {'id': '${pokemon.id}'}),
             );
           },
         ),

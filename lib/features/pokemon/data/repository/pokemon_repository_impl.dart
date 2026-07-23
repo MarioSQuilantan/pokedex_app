@@ -23,4 +23,13 @@ class PokemonRepositoryImpl implements PokemonRepository {
         .getPokemonList(request)
         .map((GetPokemonListModel model) => model.toEntity());
   }
+
+  @override
+  TaskEither<Failure, PokemonDetailEntity> getPokemonDetails(
+    GetPokemonDetailsRequest request,
+  ) {
+    return _datasource
+        .getPokemonDetails(request)
+        .map((GetPokemonDetailsModel model) => model.toEntity());
+  }
 }

@@ -9,4 +9,8 @@ abstract class PokemonDatasource {
   TaskEither<Failure, GetPokemonListModel> getPokemonList(
     GetPokemonListRequest request,
   );
+
+  TaskEither<Failure, GetPokemonDetailsModel> getPokemonDetails(
+    GetPokemonDetailsRequest request,
+  );
 }

@@ -11,7 +11,7 @@ part 'pokemon_list_state.dart';
 @Injectable()
 class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
   PokemonListBloc(this._getPokemonListUseCase) : super(const PokemonListState()) {
-    on<PokemonListStarted>(_onStarted);
+    on<PokemonListInit>(_onInit);
     on<PokemonListLoadMoreRequested>(_onLoadMoreRequested);
     on<PokemonListRefreshed>(_onRefreshed);
     on<PokemonListSortChanged>(_onSortChanged);
@@ -22,8 +22,8 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
 
   static const _pageSize = 20;
 
-  Future<void> _onStarted(
-    PokemonListStarted event,
+  Future<void> _onInit(
+    PokemonListInit event,
     Emitter<PokemonListState> emit,
   ) async {
     emit(

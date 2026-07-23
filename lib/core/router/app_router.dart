@@ -13,20 +13,21 @@ class AppRouter {
       GoRoute(
         path: RoutePaths.pokemonList.path,
         name: RoutePaths.pokemonList.name,
-        pageBuilder: (context, state) => buildRouteTransitionPage(
-          state: state,
-          transition: AppRouteTransition.slideOut,
-          child: PokemonListPage(),
-        ),
+        pageBuilder: (context, state) =>
+            buildRouteTransitionPage(state: state, transition: AppRouteTransition.slideOut, child: PokemonListPage()),
       ),
       GoRoute(
         path: RoutePaths.pokemonDetail.path,
         name: RoutePaths.pokemonDetail.name,
-        pageBuilder: (context, state) => buildRouteTransitionPage(
-          state: state,
-          transition: AppRouteTransition.slideIn,
-          child: PokemonDetailPage(),
-        ),
+        pageBuilder: (context, state) {
+          final id = num.parse(state.pathParameters['id']!);
+
+          return buildRouteTransitionPage(
+            state: state,
+            transition: AppRouteTransition.slideIn,
+            child: PokemonDetailPage(id: id),
+          );
+        },
       ),
     ],
   );

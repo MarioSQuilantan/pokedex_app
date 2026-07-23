@@ -7,8 +7,8 @@ sealed class PokemonListEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class PokemonListStarted extends PokemonListEvent {
-  const PokemonListStarted();
+final class PokemonListInit extends PokemonListEvent {
+  const PokemonListInit();
 }
 
 final class PokemonListLoadMoreRequested extends PokemonListEvent {

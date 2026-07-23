@@ -23,4 +23,13 @@ class PokemonDatasourceImpl implements PokemonDatasource {
         )
         .map(GetPokemonListModel.fromJson);
   }
+
+  @override
+  TaskEither<Failure, GetPokemonDetailsModel> getPokemonDetails(
+    GetPokemonDetailsRequest request,
+  ) {
+    return _networkService
+        .get<Map<String, dynamic>>('${UrlPaths.pokemon}/${request.id}')
+        .map(GetPokemonDetailsModel.fromJson);
+  }
 }

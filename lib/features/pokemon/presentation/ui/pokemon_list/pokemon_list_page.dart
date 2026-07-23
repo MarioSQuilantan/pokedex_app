@@ -13,7 +13,7 @@ class PokemonListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       lazy: false,
-      create: (context) => di<PokemonListBloc>()..add(const PokemonListStarted()),
+      create: (context) => di<PokemonListBloc>()..add(const PokemonListInit()),
       child: BlocBuilder<PokemonListBloc, PokemonListState>(
         builder: (context, state) {
           return Scaffold(
@@ -76,7 +76,7 @@ class PokemonListPage extends StatelessWidget {
                           ),
                           PokemonListStatus.onFailure => FailureView(
                             message: state.failureMessage ?? 'Something went wrong',
-                            onRetry: () => context.read<PokemonListBloc>().add(const PokemonListStarted()),
+                            onRetry: () => context.read<PokemonListBloc>().add(const PokemonListInit()),
                           ),
                           PokemonListStatus.onSuccess ||
                           PokemonListStatus.isLoadingMore ||
