@@ -39,9 +39,10 @@ class PokemonDetailView extends StatelessWidget {
               children: [
                 (pokemon.id != 1)
                     ? IconButton(
-                        onPressed: () => context.replaceNamed(
+                        onPressed: () => context.pushReplacementNamed(
                           RoutePaths.pokemonDetail.name,
                           pathParameters: {'id': '${pokemon.id - 1}'},
+                          extra: AppRouteTransition.slideOut,
                         ),
                         icon: const Icon(Icons.chevron_left_rounded, color: Colors.white, size: 28),
                       )
@@ -68,8 +69,11 @@ class PokemonDetailView extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () =>
-                      context.replaceNamed(RoutePaths.pokemonDetail.name, pathParameters: {'id': '${pokemon.id + 1}'}),
+                  onPressed: () => context.pushReplacementNamed(
+                    RoutePaths.pokemonDetail.name,
+                    pathParameters: {'id': '${pokemon.id + 1}'},
+                    extra: AppRouteTransition.slideIn,
+                  ),
                   icon: const Icon(Icons.chevron_right_rounded, color: Colors.white, size: 28),
                 ),
               ],

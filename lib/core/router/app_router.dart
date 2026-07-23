@@ -21,10 +21,14 @@ class AppRouter {
         name: RoutePaths.pokemonDetail.name,
         pageBuilder: (context, state) {
           final id = num.parse(state.pathParameters['id']!);
+          final transition = state.extra is AppRouteTransition
+              ? state.extra! as AppRouteTransition
+              : AppRouteTransition.slideIn;
 
           return buildRouteTransitionPage(
             state: state,
-            transition: AppRouteTransition.slideIn,
+            transition: transition,
+            slideOutAsUnderlay: transition != AppRouteTransition.slideOut,
             child: PokemonDetailPage(id: id),
           );
         },

@@ -11,6 +11,7 @@ CustomTransitionPage<void> buildRouteTransitionPage({
   required GoRouterState state,
   required Widget child,
   AppRouteTransition transition = AppRouteTransition.slideIn,
+  bool slideOutAsUnderlay = true,
   Duration duration = const Duration(milliseconds: 350),
 }) {
   return CustomTransitionPage<void>(
@@ -24,6 +25,7 @@ CustomTransitionPage<void> buildRouteTransitionPage({
         secondaryAnimation: secondaryAnimation,
         duration: duration,
         transition: transition,
+        slideOutAsUnderlay: slideOutAsUnderlay,
         child: child,
       );
     },
@@ -36,6 +38,7 @@ class _RouteTransition extends StatelessWidget {
     required this.secondaryAnimation,
     required this.duration,
     required this.transition,
+    required this.slideOutAsUnderlay,
     required this.child,
   });
 
@@ -43,6 +46,7 @@ class _RouteTransition extends StatelessWidget {
   final Animation<double> secondaryAnimation;
   final Duration duration;
   final AppRouteTransition transition;
+  final bool slideOutAsUnderlay;
   final Widget child;
 
   static const _slideCurve = Curves.easeInOutCubic;
@@ -64,7 +68,7 @@ class _RouteTransition extends StatelessWidget {
       animation: Listenable.merge([animation, secondaryAnimation]),
       builder: (context, child) {
         return switch (transition) {
-          AppRouteTransition.slideOut => SlideTransition(
+          AppRouteTransition.slideOut when slideOutAsUnderlay => SlideTransition(
             position: _horizontalSlide(
               secondaryAnimation,
               begin: Offset.zero,
@@ -75,6 +79,14 @@ class _RouteTransition extends StatelessWidget {
               duration: duration,
               child: child!,
             ),
+          ),
+          AppRouteTransition.slideOut => SlideTransition(
+            position: _horizontalSlide(
+              animation,
+              begin: const Offset(-1, 0),
+              end: Offset.zero,
+            ),
+            child: child!,
           ),
           AppRouteTransition.slideIn => SlideTransition(
             position: _horizontalSlide(
